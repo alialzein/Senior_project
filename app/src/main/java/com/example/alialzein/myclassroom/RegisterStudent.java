@@ -72,6 +72,7 @@ public class RegisterStudent extends AppCompatActivity {
                     Map user_info = new HashMap();
                     user_info.put("name", username);
                     user_info.put("password", userpass);
+                    user_info.put("Profile_Image", "null");
                     user_info.put("kind","student");
                     Current_user.setValue(user_info);
 
