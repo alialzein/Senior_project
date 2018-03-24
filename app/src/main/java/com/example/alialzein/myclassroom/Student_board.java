@@ -6,6 +6,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -27,7 +28,7 @@ public class Student_board extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_board);
-
+        Log.i("test", "git");
         auth=FirebaseAuth.getInstance();
         myAppBarLayout = (AppBarLayout) findViewById(R.id.appBarLayout);
         myTabeLayout = (TabLayout) findViewById(R.id.main_tabs_student);
