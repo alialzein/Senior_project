@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1014142402543",
+    "firebase_url": "https://myclassroom-a4f53.firebaseio.com",
+    "project_id": "myclassroom-a4f53",
+    "storage_bucket": "myclassroom-a4f53.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1014142402543:android:817f530c869dc6e8",
+        "android_client_info": {
+          "package_name": "com.example.alialzein.myclassroom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1014142402543-uamhibvi952qba378oq0vub481qme5i4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.alialzein.myclassroom",
+            "certificate_hash": "05981816b36b2b151598695d6d0c690e8569ecd9"
+          }
+        },
+        {
+          "client_id": "1014142402543-81h04rgps2cn2prco39sasr20sel1ad0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtsBcFnxSrMFdcy6B28m9Hmh4KnQvEy7k"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1014142402543-81h04rgps2cn2prco39sasr20sel1ad0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
