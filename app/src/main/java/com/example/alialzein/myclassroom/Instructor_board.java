@@ -80,6 +80,10 @@ public class Instructor_board extends AppCompatActivity {
             auth.signOut();
             LogoutUser();
         }
+        if (item.getItemId() == R.id.account_settings) {
+            Intent toSetting=new Intent(Instructor_board.this, SettingActivity.class);
+            startActivity(toSetting);
+        }
         return true;
     }
 }

@@ -12,17 +12,21 @@
         <activity
             android:name=".StartPageActivity"
             android:label="My Class Room"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity android:name=".Student_board"
-            android:label="Student Board"/>
-        <activity android:name=".RegisterInstructor"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".Student_board"
+            android:label="Student Board" />
+        <activity
+            android:name=".RegisterInstructor"
             android:label="Register" />
-        <activity android:name=".RegisterStudent"
-            android:label="Register "/>
-        <activity android:name=".Instructor_board"
-            android:label="Instructor Board"/>
-        <activity android:name=".SplashActivity"
+        <activity
+            android:name=".RegisterStudent"
+            android:label="Register " />
+        <activity
+            android:name=".Instructor_board"
+            android:label="Instructor Board" />
+        <activity
+            android:name=".SplashActivity"
             android:label="My Class Room">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,6 +34,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SettingActivity"></activity>
     </application>
 
 </manifest>
