@@ -22,7 +22,7 @@ public class Student_board extends AppCompatActivity {
     private TabLayout myTabeLayout;
     private AppBarLayout myAppBarLayout;
     private TabPagerAdapter myTabPagerAdapter;
-//jhh
+//test
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
