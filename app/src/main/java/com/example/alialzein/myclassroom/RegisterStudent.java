@@ -73,6 +73,7 @@ public class RegisterStudent extends AppCompatActivity {
                     user_info.put("name", username);
                     user_info.put("password", userpass);
                     user_info.put("Profile_Image", "null");
+                    user_info.put("Thumb_Profile_Image", "null");
                     user_info.put("kind","student");
                     Current_user.setValue(user_info);
 

@@ -126,6 +126,7 @@ public class RegisterInstructor extends AppCompatActivity {
                             user_info.put("name", instructor_name);
                             user_info.put("password", instructor_password);
                             user_info.put("Profile_Image", "null");
+                            user_info.put("Thumb_Profile_Image", "null");
                             user_info.put("kind", "instructor");
                             Current_user.setValue(user_info);
 
