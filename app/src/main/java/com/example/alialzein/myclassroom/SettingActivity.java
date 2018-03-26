@@ -133,7 +133,7 @@ public class SettingActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> thumb_task) {
                                     String thumbDownloadUrl = thumb_task.getResult().getDownloadUrl().toString();
-                                    if (task.isSuccessful()) {
+                                    if (thumb_task.isSuccessful()) {
                                         Map updateUserData = new HashMap();
                                         updateUserData.put("Profile_Image", downloadUrl);
                                         updateUserData.put("Thumb_Profile_Image", thumbDownloadUrl);

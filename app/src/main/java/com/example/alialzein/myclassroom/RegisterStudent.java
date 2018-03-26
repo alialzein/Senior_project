@@ -75,6 +75,7 @@ public class RegisterStudent extends AppCompatActivity {
                     user_info.put("Profile_Image", "null");
                     user_info.put("Thumb_Profile_Image", "null");
                     user_info.put("kind","student");
+                    user_info.put("email",useremail);
                     Current_user.setValue(user_info);
 
                     SavedSharedPreferences.setIsstudent(RegisterStudent.this, "1");
