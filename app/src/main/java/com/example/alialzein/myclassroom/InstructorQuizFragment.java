@@ -1,4 +1,4 @@
-package com.example.alialzein.myclassroom.Fragments;
+package com.example.alialzein.myclassroom;
 
 
 import android.os.Bundle;
@@ -13,10 +13,10 @@ import com.example.alialzein.myclassroom.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class InstructorWallFragment extends Fragment {
+public class InstructorQuizFragment extends Fragment {
 
 
-    public InstructorWallFragment() {
+    public InstructorQuizFragment() {
         // Required empty public constructor
     }
 
@@ -25,7 +25,7 @@ public class InstructorWallFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_instructor_wall, container, false);
+        return inflater.inflate(R.layout.fragment_instructor_quiz, container, false);
     }
 
 }

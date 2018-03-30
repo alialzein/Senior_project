@@ -1,4 +1,4 @@
-package com.example.alialzein.myclassroom.Fragments;
+package com.example.alialzein.myclassroom;
 
 
 import android.os.Bundle;
@@ -9,13 +9,14 @@ import android.view.ViewGroup;
 
 import com.example.alialzein.myclassroom.R;
 
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class StudentClassroomFragment extends Fragment {
+public class InstructorWallFragment extends Fragment {
 
 
-    public StudentClassroomFragment() {
+    public InstructorWallFragment() {
         // Required empty public constructor
     }
 
@@ -24,7 +25,7 @@ public class StudentClassroomFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_student_classroom, container, false);
+        return inflater.inflate(R.layout.fragment_instructor_wall, container, false);
     }
 
 }

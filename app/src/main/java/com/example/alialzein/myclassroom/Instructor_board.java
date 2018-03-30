@@ -9,9 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.alialzein.myclassroom.Fragments.InstructorClassroomFragment;
-import com.example.alialzein.myclassroom.Fragments.InstructorQuizFragment;
-import com.example.alialzein.myclassroom.Fragments.InstructorWallFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -82,6 +79,10 @@ public class Instructor_board extends AppCompatActivity {
         }
         if (item.getItemId() == R.id.account_settings) {
             Intent toSetting=new Intent(Instructor_board.this, SettingActivity.class);
+            startActivity(toSetting);
+        }
+        if (item.getItemId() == R.id.all_students) {
+            Intent toSetting=new Intent(Instructor_board.this, AllStudentsAccount.class);
             startActivity(toSetting);
         }
         return true;

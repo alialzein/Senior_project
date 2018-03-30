@@ -1,4 +1,4 @@
-package com.example.alialzein.myclassroom.Classes;
+package com.example.alialzein.myclassroom;
 
 import java.util.ArrayList;
 

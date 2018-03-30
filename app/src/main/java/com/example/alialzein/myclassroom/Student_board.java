@@ -10,8 +10,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.alialzein.myclassroom.Fragments.StudentClassroomFragment;
-import com.example.alialzein.myclassroom.Fragments.StudentWallFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 

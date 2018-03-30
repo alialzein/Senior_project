@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 
@@ -31,6 +32,7 @@ public class StartPageActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     String uid = null;
     private ProgressDialog loadingBar;
+    private DatabaseReference usersRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,8 @@ public class StartPageActivity extends AppCompatActivity {
         EditText_email = (EditText) findViewById(R.id.login_email);
         EditText_password = (EditText) findViewById(R.id.login_password);
         loadingBar = new ProgressDialog(this);
+        usersRef = FirebaseDatabase.getInstance().getReference().
+                child("users");
 
 
         login_btn.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +69,15 @@ public class StartPageActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             FirebaseUser currentUser = auth.getCurrentUser();
                             uid = currentUser.getUid();
+                            //to get the id of the device, each device has unique id
+                            String DeviceToken = FirebaseInstanceId.getInstance().getToken();
+                            usersRef.child(uid).child("device_token").setValue(DeviceToken).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+
+                                }
+                            });
+
                             DatabaseReference Current_user_info = FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("kind");
                             Current_user_info.addValueEventListener(new ValueEventListener() {
                                 @Override

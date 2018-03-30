@@ -22,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,6 +68,7 @@ public class RegisterInstructor extends AppCompatActivity {
             Toast.makeText(RegisterInstructor.this,"You have Some Missing Fields",Toast.LENGTH_SHORT).show();
         }else {
             DatabaseReference getted_password = FirebaseDatabase.getInstance().getReference().child("Instructor_register_passwords");
+            getted_password.keepSynced(true);
             getted_password.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -120,15 +122,20 @@ public class RegisterInstructor extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            String DeviceToken = FirebaseInstanceId.getInstance().getToken();
                             String id = mAuth.getCurrentUser().getUid();
                             DatabaseReference Current_user = FirebaseDatabase.getInstance().getReference().child("users").child(id);
+                            DatabaseReference InstructorRef = FirebaseDatabase.getInstance().getReference().child("instructors").child(id);
                             Map user_info = new HashMap();
                             user_info.put("name", instructor_name);
                             user_info.put("password", instructor_password);
-                            user_info.put("Profile_Image", "null");
-                            user_info.put("Thumb_Profile_Image", "null");
+                            user_info.put("profile_image", "null");
+                            user_info.put("thumb_profile_image", "null");
                             user_info.put("kind", "instructor");
+                            user_info.put("email",instructor_email);
+                            user_info.put("device_token",DeviceToken);
                             Current_user.setValue(user_info);
+                            InstructorRef.setValue(user_info);
 
                             SavedSharedPreferences.setIsstudent(RegisterInstructor.this, "2");
                             SavedSharedPreferences.setEmail(RegisterInstructor.this, instructor_email);

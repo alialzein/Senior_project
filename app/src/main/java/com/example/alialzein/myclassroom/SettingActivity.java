@@ -23,6 +23,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -42,6 +44,8 @@ public class SettingActivity extends AppCompatActivity {
     private Button changeProfileImage;
     private FirebaseAuth mauth;
     private DatabaseReference userInfoReference;
+    private DatabaseReference studentInfoReference;
+    private DatabaseReference instructorInfoReference;
     private final static int gallery_pick = 1;
     private StorageReference profileImgStorageRef;
     private StorageReference thumbImgStorageRef;
@@ -58,6 +62,11 @@ public class SettingActivity extends AppCompatActivity {
         mauth = FirebaseAuth.getInstance();
         String userId = mauth.getCurrentUser().getUid();
         userInfoReference = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
+        userInfoReference.keepSynced(true);
+        studentInfoReference = FirebaseDatabase.getInstance().getReference().child("students").child(userId);
+        studentInfoReference.keepSynced(true);
+        instructorInfoReference = FirebaseDatabase.getInstance().getReference().child("instructors").child(userId);
+        instructorInfoReference.keepSynced(true);
         profileImgStorageRef = FirebaseStorage.getInstance().getReference().child("Profile_Images");
         thumbImgStorageRef = FirebaseStorage.getInstance().getReference().child("Thumb_Images");
         loadingbar = new ProgressDialog(this);
@@ -66,10 +75,22 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String name = dataSnapshot.child("name").getValue().toString();
-                String image = dataSnapshot.child("Thumb_Profile_Image").getValue().toString();
+               final String image = dataSnapshot.child("thumb_profile_image").getValue().toString();
                 settingUsename.setText(name);
                 if (!image.equals("null")) {
-                    Picasso.with(SettingActivity.this).load(image).placeholder(R.drawable.default_profile_img).into(settingProfileImage);
+
+                    Picasso.with(SettingActivity.this).load(image).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.drawable.default_profile_img)
+                            .into(settingProfileImage, new Callback() {
+                        @Override
+                        public void onSuccess() {
+
+                        }
+
+                        @Override
+                        public void onError() {
+                            Picasso.with(SettingActivity.this).load(image).placeholder(R.drawable.default_profile_img).into(settingProfileImage);
+                        }
+                    });
                 }
 
             }
@@ -134,15 +155,33 @@ public class SettingActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> thumb_task) {
                                     String thumbDownloadUrl = thumb_task.getResult().getDownloadUrl().toString();
                                     if (thumb_task.isSuccessful()) {
-                                        Map updateUserData = new HashMap();
-                                        updateUserData.put("Profile_Image", downloadUrl);
-                                        updateUserData.put("Thumb_Profile_Image", thumbDownloadUrl);
+                                      final  Map updateUserData = new HashMap();
+                                        updateUserData.put("profile_image", downloadUrl);
+                                        updateUserData.put("thumb_profile_image", thumbDownloadUrl);
+
 
                                         userInfoReference.updateChildren(updateUserData).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
-                                                Toast.makeText(SettingActivity.this, "image uploaded successfully", Toast.LENGTH_SHORT).show();
-                                                loadingbar.dismiss();
+                                                if (task.isSuccessful()) {
+                                                    userInfoReference.addValueEventListener(new ValueEventListener() {
+                                                        @Override
+                                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                                          String kind=  dataSnapshot.child("kind").getValue().toString();
+                                                            if (kind.equals("instructor")) {
+                                                                instructorInfoReference.updateChildren(updateUserData);
+                                                            }else { studentInfoReference.updateChildren(updateUserData);}
+                                                        }
+
+                                                        @Override
+                                                        public void onCancelled(DatabaseError databaseError) {
+
+                                                        }
+                                                    });
+                                                    Toast.makeText(SettingActivity.this, "image uploaded successfully", Toast.LENGTH_SHORT).show();
+                                                    loadingbar.dismiss();
+                                                }
+
                                             }
                                         });
                                     }

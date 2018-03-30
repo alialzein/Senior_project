@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -66,18 +67,20 @@ public class RegisterStudent extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-
+                    String DeviceToken = FirebaseInstanceId.getInstance().getToken();
                  String id=   mAuth.getCurrentUser().getUid();
                     DatabaseReference Current_user = FirebaseDatabase.getInstance().getReference().child("users").child(id);
+                    DatabaseReference StudentRef = FirebaseDatabase.getInstance().getReference().child("students").child(id);
                     Map user_info = new HashMap();
                     user_info.put("name", username);
                     user_info.put("password", userpass);
-                    user_info.put("Profile_Image", "null");
-                    user_info.put("Thumb_Profile_Image", "null");
+                    user_info.put("profile_image", "null");
+                    user_info.put("thumb_profile_image", "null");
                     user_info.put("kind","student");
                     user_info.put("email",useremail);
+                    user_info.put("device_token",DeviceToken);
                     Current_user.setValue(user_info);
-
+                    StudentRef.setValue(user_info);
                     SavedSharedPreferences.setIsstudent(RegisterStudent.this, "1");
                     SavedSharedPreferences.setEmail(RegisterStudent.this, useremail);
                     SavedSharedPreferences.setPassword(RegisterStudent.this, userpass);

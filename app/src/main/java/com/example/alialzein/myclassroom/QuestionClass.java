@@ -1,4 +1,4 @@
-package com.example.alialzein.myclassroom.Classes;
+package com.example.alialzein.myclassroom;
 
 /**
  * Created by ALiAlzein on 3/14/2018.

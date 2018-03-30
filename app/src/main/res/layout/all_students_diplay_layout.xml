@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+android:background="@drawable/background_list_of_students"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="102dp"
+        android:layout_margin="8dp">
+        
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/all_students_profile_image"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:src="@drawable/default_profile_img"/>
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="5dp">
+            <TextView
+                android:id="@+id/all_students_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="User Name"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/all_students_emails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="User Email"
+                android:textColor="@color/common_google_signin_btn_text_dark_default"
+                android:textSize="15sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/Add_student_btn"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Add"/>
+                <Button
+                    android:id="@+id/Remove_student_btn"
+                    android:visibility="invisible"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="70dp"
+                    android:text="Remove"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
