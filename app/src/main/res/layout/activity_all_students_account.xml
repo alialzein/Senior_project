@@ -10,7 +10,16 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/all_students_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+     >
 
     </android.support.v7.widget.RecyclerView>
+    <Button
+       android:layout_alignBottom="@id/all_students_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/finish_create_classroom"
+        android:text="Finish"
+        android:textSize="20dp"
+        />
 </RelativeLayout>

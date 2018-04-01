@@ -15,10 +15,13 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
+        String Notif_title = remoteMessage.getNotification().getTitle();
+        String Notif_body = remoteMessage.getNotification().getBody();
+
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.default_profile_img)
-                .setContentTitle("MyClassRoom")
-                .setContentText("you have added to....")
+                .setContentTitle(Notif_title)
+                .setContentText(Notif_body)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
         int mNotificationId = (int) System.currentTimeMillis();

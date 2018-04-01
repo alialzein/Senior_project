@@ -34,8 +34,10 @@ public class Student_board extends AppCompatActivity {
 
         myTabPagerAdapter = new TabPagerAdapter(getSupportFragmentManager());
 
-        myTabPagerAdapter.addFragment(new StudentWallFragment(),"Wall");
-        myTabPagerAdapter.addFragment(new StudentClassroomFragment(),"Classroom");
+
+        myTabPagerAdapter.addFragment(new StudentClassroomFragment(),"Classrooms");
+        myTabPagerAdapter.addFragment(new StudentQuizFragment(),"Quiz");
+
 
         myViewPager.setAdapter(myTabPagerAdapter);
 

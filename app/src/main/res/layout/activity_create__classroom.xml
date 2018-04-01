@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="10dp"
+    tools:context="com.example.alialzein.myclassroom.Create_Classroom">
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:text="ClassRooom Name:"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"/>
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="160dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/classroom_name"/>
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="90dp"
+        android:text="Enter the Section:"
+        android:textStyle="bold"/>
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="160dp"
+        android:layout_marginTop="90dp"
+        android:id="@+id/classroom_section"/>
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="170dp"
+        android:text="Enter the semester:"
+        android:textStyle="bold"/>
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="160dp"
+        android:layout_marginTop="170dp"
+        android:id="@+id/classroom_semester"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="290dp"
+        android:text="Add Students to classroom"
+        android:id="@+id/add_student_to_classroom"/>
+
+
+</RelativeLayout>
