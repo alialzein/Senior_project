@@ -9,8 +9,9 @@ import java.util.ArrayList;
 public class QuizClass {
     ArrayList<QuestionClass> questions = new ArrayList<QuestionClass>();
     int numOfQuestions;
+    String quizID;
 
-    public QuizClass(ArrayList<QuestionClass> questions, int numOfQuestions) {
+    public QuizClass(String quizID,ArrayList<QuestionClass> questions, int numOfQuestions) {
         this.questions = questions;
         this.numOfQuestions = numOfQuestions;
     }
