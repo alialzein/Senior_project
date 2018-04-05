@@ -33,7 +33,7 @@ public class CreatQuiz extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creat_quiz);
-        tooQuiz=new Intent(this,Instructor_board.class);
+        tooQuiz=new Intent(this,InstructorQuizFragment.class);
         refresh=new Intent(this,this.getClass());
         id=(EditText)findViewById(R.id.QuizID);
         e = (EditText) findViewById(R.id.question);
@@ -55,7 +55,7 @@ public class CreatQuiz extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                // String pin_entered = input.getText().toString();
-                if(input.getText().toString().matches("")){
+                if(input.getText().toString().matches("")||input.getText().toString().contains(" ")){
                     showMessage("Empty field","Please Make Sure To Enter The Number Of Questions Your Quiz Consists of");
                     startActivity(refresh);
                 }
