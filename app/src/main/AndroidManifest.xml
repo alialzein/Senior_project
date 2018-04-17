@@ -68,7 +68,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.alialzein.myclassroom.Instructor_board" />
         </activity>
-        <activity android:name=".CreatQuiz"></activity>
+        <activity android:name=".commentActivity" />
+        <activity android:name=".CreatQuiz" />
+        <activity android:name=".startQuiz"></activity>
     </application>
 
 </manifest>

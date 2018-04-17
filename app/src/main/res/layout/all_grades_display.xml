@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="28dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_margin="3dp"
+        android:background="@color/colorPrimary"
+        >
+
+        <TextView
+            android:id="@+id/std_email"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:background="@color/common_google_signin_btn_text_light_default"
+            android:text="ali@gmail.com"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_light"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/std_grade"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_green_light"
+            android:textStyle="bold"
+            android:text="100"/>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

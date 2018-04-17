@@ -81,10 +81,7 @@ public class Instructor_board extends AppCompatActivity {
             Intent toSetting=new Intent(Instructor_board.this, SettingActivity.class);
             startActivity(toSetting);
         }
-        if (item.getItemId() == R.id.all_students) {
-            Intent toSetting=new Intent(Instructor_board.this, AllStudentsAccount.class);
-            startActivity(toSetting);
-        }
+
         return true;
     }
 }

@@ -12,9 +12,5 @@
         app:showAsAction="never">
 
     </item>
-    <item android:title="add student"
-        android:id="@+id/all_students"
-        app:showAsAction="never">
 
-    </item>
 </menu>

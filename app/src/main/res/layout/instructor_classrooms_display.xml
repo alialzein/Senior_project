@@ -10,7 +10,7 @@
 
        <TextView
            android:id="@+id/Classroom_name"
-           android:layout_width="280dp"
+           android:layout_width="240dp"
            android:layout_height="match_parent"
            android:background="@color/common_google_signin_btn_text_dark_disabled"
            android:text="ali"
@@ -27,7 +27,7 @@
 
           <TextView
               android:id="@+id/Classroom_section"
-              android:layout_width="100dp"
+              android:layout_width="110dp"
               android:layout_height="40dp"
               android:background="@color/common_google_signin_btn_text_light_default"
               android:text="A"
@@ -38,7 +38,7 @@
 
           <TextView
               android:id="@+id/Classroom_semester"
-              android:layout_width="100dp"
+              android:layout_width="110dp"
               android:layout_height="40dp"
               android:background="@color/common_google_signin_btn_text_light_default"
               android:text="Fall"
