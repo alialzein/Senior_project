@@ -53,9 +53,9 @@ public class Create_Classroom extends AppCompatActivity {
         add_Student_to_Classroom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                 Class_name = classroom_name.getText().toString();
-                 Class_section = classroom_section.getText().toString();
-                 Class_semester = classroom_semester.getText().toString();
+                 Class_name = classroom_name.getText().toString().toUpperCase();
+                 Class_section = classroom_section.getText().toString().toUpperCase();
+                 Class_semester = classroom_semester.getText().toString().toUpperCase();
                 if (TextUtils.isEmpty(Class_name) || TextUtils.isEmpty(Class_section) || TextUtils.isEmpty(Class_semester))
                 {
                     Toast.makeText(Create_Classroom.this,"You have Some Missing Fields",Toast.LENGTH_SHORT).show();

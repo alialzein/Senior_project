@@ -38,6 +38,7 @@ dependencies {
     implementation 'id.zelory:compressor:2.1.0'
     implementation 'com.firebaseui:firebase-ui-database:2.3.0'
     implementation 'com.squareup.okhttp:okhttp:2.5.0'
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
 
 }
 

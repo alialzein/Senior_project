@@ -46,6 +46,7 @@ public class StudentClassroomFragment extends Fragment {
         studentId = mAuth.getCurrentUser().getUid();
         student_classrooms_reference = FirebaseDatabase.getInstance().getReference().child("studentClassrooms").child(studentId);
         student_classrooms_reference.keepSynced(true);
+      //  Query x = student_classrooms_reference.orderByChild()
 
         student_classroom_list.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -85,7 +86,7 @@ public class StudentClassroomFragment extends Fragment {
                         String classroom_section = model.getClassroom_section();
                         String classroom_semester = model.getClassroom_semester();
                         String UniqueClassId = getRef(position).getKey();
-                        Intent to_student_classroom_profile = new Intent(getActivity(), student_Classroom_Profile.class);
+                        Intent to_student_classroom_profile = new Intent(getActivity(), instructor_Classroom_Profile.class);
                         to_student_classroom_profile.putExtra("UniqueClassId", UniqueClassId);
                         to_student_classroom_profile.putExtra("instructorId", instructorId);
                         to_student_classroom_profile.putExtra("classroom_name", classroom_name);

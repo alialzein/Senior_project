@@ -3,6 +3,7 @@ package com.example.alialzein.myclassroom;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -58,6 +62,9 @@ private String instructorId;
         Classrooms_reference = FirebaseDatabase.getInstance().getReference().child("classrooms").child(instructorId);
         Classrooms_reference.keepSynced(true);
 
+
+
+
         instructor_classroom_list.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
@@ -91,6 +98,7 @@ private String instructorId;
                 viewHolder.setClassroom_section(model.getClassroom_section());
                 viewHolder.setClassroom_semester(model.getClassroom_semester());
 
+
                 String UniqueClassId = getRef(position).getKey();
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -111,6 +119,32 @@ private String instructorId;
                     }
                 });
 
+                viewHolder.mView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        new MaterialDialog.Builder(getActivity())
+                                .title("Do you want to delete the classroom ?")
+                                .positiveText("Yes")
+                                .negativeText("No")
+                                .theme(Theme.DARK)
+                                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                    @Override
+                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+
+                                    }
+                                })
+                                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                                    @Override
+                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                    }
+                                })
+                                .show();
+                        return false;
+                    }
+                });
+
             }
         };
 
@@ -123,6 +157,7 @@ private String instructorId;
         public InstructorClassrromsViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
+
 
         }
 

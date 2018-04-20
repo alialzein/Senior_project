@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/darker_gray"
     tools:context="com.example.alialzein.myclassroom.instructor_Classroom_Profile">
 
     <android.support.design.widget.AppBarLayout
@@ -22,13 +23,6 @@
 
     <include layout="@layout/content_instructor__classroom__profile" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="comment"
-        android:id="@+id/comment"
-        android:layout_marginTop="100dp"/>
 
 
-
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

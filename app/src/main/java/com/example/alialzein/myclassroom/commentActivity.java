@@ -1,5 +1,6 @@
 package com.example.alialzein.myclassroom;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
@@ -7,17 +8,21 @@ import android.widget.Toast;
 
 public class commentActivity extends AppCompatActivity implements SimpleGestureFilter.SimpleGestureListener {
 
+    private Intent get_post_info;
     private SimpleGestureFilter detector;
+    private String classroom_id, post_push_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
-
-
         setTitle("Comments");
 
-
         detector = new SimpleGestureFilter(this,this);
+        get_post_info = getIntent();
+        classroom_id= get_post_info.getStringExtra("classroom_id");
+        post_push_id= get_post_info.getStringExtra("post_push_id");
+        Toast.makeText(this, "classroom_id"+classroom_id+"post_push_id"+post_push_id, Toast.LENGTH_SHORT).show();
+
 
 
 
@@ -26,8 +31,9 @@ public class commentActivity extends AppCompatActivity implements SimpleGestureF
     @Override
     public void onBackPressed() {
 
-
         super.onBackPressed();
+        overridePendingTransition(R.anim.no_change,R.anim.slide_down_info);
+
 
     }
 
