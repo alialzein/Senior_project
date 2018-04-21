@@ -18,9 +18,18 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -33,6 +42,10 @@ private FirebaseAuth mAuth;
 private RecyclerView instructor_classroom_list;
 private DatabaseReference Classrooms_reference;
 private String instructorId;
+    private DatabaseReference classArrangmentRef;
+    private Map instructor_classroom_info;
+    private Query classroom_orders;
+    private LinearLayoutManager linearLayoutManager;
 
     public InstructorClassroomFragment() {
         // Required empty public constructor
@@ -62,10 +75,16 @@ private String instructorId;
         Classrooms_reference = FirebaseDatabase.getInstance().getReference().child("classrooms").child(instructorId);
         Classrooms_reference.keepSynced(true);
 
+        classroom_orders = Classrooms_reference.orderByChild("post_time");
+
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setReverseLayout(true);//to reverse the layout
+        linearLayoutManager.setStackFromEnd(true);
 
 
 
-        instructor_classroom_list.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        instructor_classroom_list.setLayoutManager(linearLayoutManager);
 
 
 
@@ -86,7 +105,7 @@ private String instructorId;
                 (Instructor_Classrooms.class,
                         R.layout.instructor_classrooms_display,
                         InstructorClassrromsViewHolder.class,
-                        Classrooms_reference
+                        classroom_orders
 
 
                 )
@@ -98,8 +117,40 @@ private String instructorId;
                 viewHolder.setClassroom_section(model.getClassroom_section());
                 viewHolder.setClassroom_semester(model.getClassroom_semester());
 
+                final String UniqueClassId = getRef(position).getKey();
 
-                String UniqueClassId = getRef(position).getKey();
+
+
+
+                ////////////////////////////////////////////////////////////////////////////////////////////////
+                //to update the post_time to latest post time
+                classArrangmentRef=FirebaseDatabase.getInstance().getReference().child("classroom_arrangment");
+                classArrangmentRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.hasChild(UniqueClassId)) {
+                            Long time= dataSnapshot.child(UniqueClassId).child("post_time").getValue(long.class);
+
+                            instructor_classroom_info = new HashMap();
+
+                            instructor_classroom_info.put("post_time", time);
+                            Classrooms_reference.child(UniqueClassId).updateChildren(instructor_classroom_info);
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
+                ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -107,7 +158,7 @@ private String instructorId;
                         String classroom_section = model.getClassroom_section();
                         String classroom_semester = model.getClassroom_semester();
                         String UniqueClassId = getRef(position).getKey();
-                        Intent to_instructor_classroom_profile = new Intent(getActivity(), instructor_Classroom_Profile.class);
+                        Intent to_instructor_classroom_profile = new Intent(getActivity(), posts_profile_activity.class);
 
                         to_instructor_classroom_profile.putExtra("UniqueClassId", UniqueClassId);
                         to_instructor_classroom_profile.putExtra("classroom_name", classroom_name);
@@ -130,6 +181,21 @@ private String instructorId;
                                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                                     @Override
                                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                        DatabaseReference ClassroomsRef=FirebaseDatabase.getInstance().getReference()
+                                                .child("classrooms");
+                                        final DatabaseReference postsRef = FirebaseDatabase.getInstance().getReference().child("posts");
+                                        ClassroomsRef.child(instructorId).child(UniqueClassId).removeValue()
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+
+                                                    postsRef.child(UniqueClassId).removeValue();
+                                                }
+                                            }
+                                        });
+
 
 
                                     }

@@ -10,12 +10,12 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.support.v7.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +26,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ServerValue;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -135,12 +136,16 @@ public class AllStudentsAccount extends AppCompatActivity implements SearchView.
                     student_classroom_info.put("classroom_semester", Class_semester);
                     student_classroom_info.put("classroom_section", Class_section);
                     student_classroom_info.put("instructorID", instructorID);
+                    student_classroom_info.put("post_time", ServerValue.TIMESTAMP);
                     studentClassroomsRef = FirebaseDatabase.getInstance().getReference().child("studentClassrooms").child(student_id);
 
                     studentClassroomsRef.child(UniqueOfClassroom).setValue(student_classroom_info).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
 
+                            if (task.isSuccessful()) {
+
+                            }
                         }
                     });
                     //to add notification refrence for realtime notification

@@ -37,7 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class instructor_Classroom_Profile extends AppCompatActivity {
+public class posts_profile_activity extends AppCompatActivity {
 
     private Intent classroom_information;
     private String classroom_name, classroom_section, classroom_semester, UniqueClassId, instructorId;
@@ -58,11 +58,15 @@ public class instructor_Classroom_Profile extends AppCompatActivity {
     private StorageReference message_image_storage_ref;
     private ProgressDialog progressDialog;
 
+    private DatabaseReference ClassRoomsReference;
+    private DatabaseReference classArrangmentRef;
+   private Map instructor_classroom_info;
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_instructor__classroom__profile);
+        setContentView(R.layout.activity_posts_profile_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -130,6 +134,9 @@ public class instructor_Classroom_Profile extends AppCompatActivity {
 
 
             inst_email = mAuth.getCurrentUser().getEmail();
+
+
+
         } else//the interface of students
         {
             Toast.makeText(this, "This is student", Toast.LENGTH_SHORT).show();
@@ -149,16 +156,6 @@ public class instructor_Classroom_Profile extends AppCompatActivity {
             });
         }
 
-
-//        comment = (Button) findViewById(R.id.comment);
-//        comment.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent_info = new Intent(instructor_Classroom_Profile.this,commentActivity.class);
-//                startActivity(intent_info);
-//                overridePendingTransition(R.anim.slide_up_info,R.anim.no_change);
-//            }
-//        });
 
 
     }
@@ -210,10 +207,10 @@ public class instructor_Classroom_Profile extends AppCompatActivity {
                                 progressDialog.dismiss();
                             }
                         });
-                        Toast.makeText(instructor_Classroom_Profile.this, "picture sent successfully.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(posts_profile_activity.this, "picture sent successfully.", Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
                     } else {
-                        Toast.makeText(instructor_Classroom_Profile.this, "picture not sent, try again.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(posts_profile_activity.this, "picture not sent, try again.", Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
                     }
                 }
@@ -265,7 +262,7 @@ public class instructor_Classroom_Profile extends AppCompatActivity {
         String post_text = post_editText.getText().toString();
 
         if (TextUtils.isEmpty(post_text)) {
-            Toast.makeText(instructor_Classroom_Profile.this, "please add a post", Toast.LENGTH_SHORT).show();
+            Toast.makeText(posts_profile_activity.this, "please add a post", Toast.LENGTH_SHORT).show();
         } else {
             String post_ref = "posts/" + UniqueClassId;
             DatabaseReference postRef_key = rootRef.child("posts").child(UniqueClassId).push();
@@ -291,7 +288,13 @@ public class instructor_Classroom_Profile extends AppCompatActivity {
                     }
                     post_editText.setText("");
                 }
+
             });
+            DatabaseReference classArrangmentRef=FirebaseDatabase.getInstance().getReference().child("classroom_arrangment");
+            classArrangmentRef.child(UniqueClassId).child("post_time").setValue(ServerValue.TIMESTAMP);
+
+            DatabaseReference newPostFlag=FirebaseDatabase.getInstance().getReference().child("new_post_flag");
+            newPostFlag.child(UniqueClassId).child("new_post").setValue(true);
 
         }
     }

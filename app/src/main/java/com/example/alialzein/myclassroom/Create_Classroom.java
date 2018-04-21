@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -75,10 +76,12 @@ public class Create_Classroom extends AppCompatActivity {
         loadingBar.setMessage("Please Wait, while we are creating ClassRoom for you");
         loadingBar.show();
         Map classroom_info = new HashMap();
+        String post_time = String.valueOf(ServerValue.TIMESTAMP);
         //  classroom_info.put("instructor_ID", instructorID);
         classroom_info.put("classroom_name", Class_name);
         classroom_info.put("classroom_semester", Class_semester);
         classroom_info.put("classroom_section", Class_section);
+        classroom_info.put("post_time", ServerValue.TIMESTAMP);
 
         ClassRoomsReference.child(instructorID).child(UniqueOfClassroom).setValue(classroom_info).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -86,6 +89,8 @@ public class Create_Classroom extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     loadingBar.dismiss();
                     Toast.makeText(Create_Classroom.this, "ClassRoom Created Successfully", Toast.LENGTH_SHORT).show();
+
+
 
                 }
             }
@@ -97,6 +102,7 @@ public class Create_Classroom extends AppCompatActivity {
         toAddStudentActivity.putExtra("Class_name", Class_name);
         toAddStudentActivity.putExtra("Class_section", Class_section);
         toAddStudentActivity.putExtra("Class_semester", Class_semester);
+
         startActivity(toAddStudentActivity);
         finish();
 

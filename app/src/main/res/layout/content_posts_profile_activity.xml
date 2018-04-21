@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.alialzein.myclassroom.instructor_Classroom_Profile"
-    tools:showIn="@layout/activity_instructor__classroom__profile">
+    tools:context="com.example.alialzein.myclassroom.posts_profile_activity"
+    tools:showIn="@layout/activity_posts_profile_activity">
 
 
     <android.support.v7.widget.RecyclerView

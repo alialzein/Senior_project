@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
+        android:id="@+id/all_background"
         android:background="@color/common_google_signin_btn_text_dark_disabled"
         >
 
@@ -28,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_weight="0.7"
+            android:layout_weight="0.6"
             android:layout_margin="5dp"
             android:weightSum="1">
 

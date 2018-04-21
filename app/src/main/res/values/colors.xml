@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#303f9f</color>
     <color name="colorAccent">#FF4081</color>
     <color name="ListOfStudent">#eeea00</color>
+    <color name="newPostFlag">#00ff00</color>
+    <color name="whiteblue">#b2daf5</color>
 </resources>

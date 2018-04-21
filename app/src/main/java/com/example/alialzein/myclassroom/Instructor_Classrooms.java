@@ -8,15 +8,25 @@ public class Instructor_Classrooms {
     public String classroom_name;
     public String classroom_section;
     public String classroom_semester;
+    public long post_time;
 
     public Instructor_Classrooms() {
 
     }
 
-    public Instructor_Classrooms(String classroom_name, String classroom_section, String classroom_semester) {
+    public Instructor_Classrooms(String classroom_name, String classroom_section, String classroom_semester,long post_time) {
         this.classroom_name = classroom_name;
         this.classroom_section = classroom_section;
         this.classroom_semester = classroom_semester;
+        this.post_time = post_time;
+    }
+
+    public long getPost_time() {
+        return post_time;
+    }
+
+    public void setPost_time(long post_time) {
+        this.post_time = post_time;
     }
 
     public String getClassroom_name() {

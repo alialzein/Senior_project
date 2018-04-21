@@ -51,16 +51,7 @@
         <activity android:name=".AllStudentsAccount" />
         <activity android:name=".Create_Classroom" />
         <activity
-            android:name=".student_Classroom_Profile"
-            android:label="@string/title_activity_student__classroom__profile"
-            android:parentActivityName=".Student_board"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.alialzein.myclassroom.Student_board" />
-        </activity>
-        <activity
-            android:name=".instructor_Classroom_Profile"
+            android:name=".posts_profile_activity"
             android:label="@string/title_activity_instructor__classroom__profile"
             android:parentActivityName=".Instructor_board"
             android:theme="@style/AppTheme.NoActionBar">
