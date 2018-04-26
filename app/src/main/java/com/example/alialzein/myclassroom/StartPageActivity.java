@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -63,63 +65,67 @@ public class StartPageActivity extends AppCompatActivity {
                  final String password = EditText_password.getText().toString();
              //   Log.i("email", email);
                 final ArrayList<String> kind = new ArrayList<>();
-                auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            FirebaseUser currentUser = auth.getCurrentUser();
-                            uid = currentUser.getUid();
-                            //to get the id of the device, each device has unique id
-                            String DeviceToken = FirebaseInstanceId.getInstance().getToken();
-                            usersRef.child(uid).child("device_token").setValue(DeviceToken).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
+                if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+                    Toast.makeText(StartPageActivity.this, "You have some missing fields", Toast.LENGTH_SHORT).show();
+                }else {
+                    auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                FirebaseUser currentUser = auth.getCurrentUser();
+                                uid = currentUser.getUid();
+                                //to get the id of the device, each device has unique id
+                                String DeviceToken = FirebaseInstanceId.getInstance().getToken();
+                                usersRef.child(uid).child("device_token").setValue(DeviceToken).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
 
-                                }
-                            });
-
-                            DatabaseReference Current_user_info = FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("kind");
-                            Current_user_info.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    String value = dataSnapshot.getValue(String.class);
-                                    //  Log.i("value", value);
-
-                                    kind.add(value);
-                                    Log.i("kind", kind.get(0));
-                                    if (kind.get(0).equals("student")) {
-                                        isStudent = 1;
                                     }
-                                    if (isStudent == 1) {
-                                        SavedSharedPreferences.setIsstudent(StartPageActivity.this, "1");
-                                        SavedSharedPreferences.setEmail(StartPageActivity.this, email);
-                                        SavedSharedPreferences.setPassword(StartPageActivity.this, password);
+                                });
 
-                                        Intent Student_board = new Intent(StartPageActivity.this, Student_board.class);
-                                        Student_board.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);//to not allow the user to press back to this activity
-                                        startActivity(Student_board);
-                                        finish();
-                                    } else {
-                                        SavedSharedPreferences.setIsstudent(StartPageActivity.this, "2");
-                                        SavedSharedPreferences.setEmail(StartPageActivity.this, email);
-                                        SavedSharedPreferences.setPassword(StartPageActivity.this, password);
+                                DatabaseReference Current_user_info = FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("kind");
+                                Current_user_info.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        String value = dataSnapshot.getValue(String.class);
+                                        //  Log.i("value", value);
 
-                                        Intent Instructor_board = new Intent(StartPageActivity.this, Instructor_board.class);
-                                        Instructor_board.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);//to not allow the user to press back to this activity
-                                        startActivity(Instructor_board);
-                                        finish();
+                                        kind.add(value);
+                                        Log.i("kind", kind.get(0));
+                                        if (kind.get(0).equals("student")) {
+                                            isStudent = 1;
+                                        }
+                                        if (isStudent == 1) {
+                                            SavedSharedPreferences.setIsstudent(StartPageActivity.this, "1");
+                                            SavedSharedPreferences.setEmail(StartPageActivity.this, email);
+                                            SavedSharedPreferences.setPassword(StartPageActivity.this, password);
+
+                                            Intent Student_board = new Intent(StartPageActivity.this, Student_board.class);
+                                            Student_board.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);//to not allow the user to press back to this activity
+                                            startActivity(Student_board);
+                                            finish();
+                                        } else {
+                                            SavedSharedPreferences.setIsstudent(StartPageActivity.this, "2");
+                                            SavedSharedPreferences.setEmail(StartPageActivity.this, email);
+                                            SavedSharedPreferences.setPassword(StartPageActivity.this, password);
+
+                                            Intent Instructor_board = new Intent(StartPageActivity.this, Instructor_board.class);
+                                            Instructor_board.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);//to not allow the user to press back to this activity
+                                            startActivity(Instructor_board);
+                                            finish();
+                                        }
                                     }
-                                }
 
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
 
-                                }
-                            });
+                                    }
+                                });
+                            }
+                            loadingBar.dismiss();
                         }
-                        loadingBar.dismiss();
-                    }
-                });
+                    });
+                }
             }
         });
 

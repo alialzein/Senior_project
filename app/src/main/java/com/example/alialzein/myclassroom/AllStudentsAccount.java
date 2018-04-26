@@ -70,7 +70,7 @@ public class AllStudentsAccount extends AppCompatActivity implements SearchView.
         ClassRoomsReference = FirebaseDatabase.getInstance().getReference().child("classrooms");
         ClassRoomsReference.keepSynced(true);
         NotificationRef = FirebaseDatabase.getInstance().getReference().child("notification");
-        NotificationRef.keepSynced(true);
+      //  NotificationRef.keepSynced(true);
 
 
         mAuth = FirebaseAuth.getInstance();

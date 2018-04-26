@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="10dp"
+    android:padding="10dp"
     tools:context="com.example.alialzein.myclassroom.Create_Classroom">
 
     <TextView
@@ -15,9 +16,10 @@
         android:textStyle="bold"/>
     <EditText
         android:layout_width="200dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="160dp"
         android:layout_marginTop="10dp"
+        android:background="@drawable/edit_text_border"
         android:id="@+id/classroom_name"/>
 
     <TextView
@@ -28,9 +30,10 @@
         android:textStyle="bold"/>
     <EditText
         android:layout_width="200dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="160dp"
         android:layout_marginTop="90dp"
+        android:background="@drawable/edit_text_border"
         android:id="@+id/classroom_section"/>
 
     <TextView
@@ -41,16 +44,44 @@
         android:textStyle="bold"/>
     <EditText
         android:layout_width="200dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="160dp"
         android:layout_marginTop="170dp"
+        android:background="@drawable/edit_text_border"
         android:id="@+id/classroom_semester"
         />
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="250dp"
+        android:text="Enter the class time:"
+        android:textStyle="bold"/>
+    <EditText
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="160dp"
+        android:layout_marginTop="250dp"
+        android:hint="hour"
+        android:background="@drawable/edit_text_border"
+        android:id="@+id/classroom_hour"
+        />
+    <EditText
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="240dp"
+        android:layout_marginTop="250dp"
+        android:hint="min"
+        android:background="@drawable/edit_text_border"
+        android:id="@+id/classroom_minutes"
+        />
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="290dp"
+        android:layout_marginTop="320dp"
         android:text="Add Students to classroom"
+        android:background="@drawable/comment_button"
+        android:textColor="#FFFFFF"
         android:id="@+id/add_student_to_classroom"/>
 
 

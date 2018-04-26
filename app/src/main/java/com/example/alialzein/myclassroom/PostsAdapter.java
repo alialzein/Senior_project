@@ -2,6 +2,7 @@ package com.example.alialzein.myclassroom;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +11,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
@@ -45,9 +52,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
 
 
     @Override
-    public void onBindViewHolder(PostsViewHolder holder, int position) {
+    public void onBindViewHolder(final PostsViewHolder holder, final int position) {
         mAuth=FirebaseAuth.getInstance();
-        String instEmail = mAuth.getCurrentUser().getEmail();
+        String userEmailOnline= mAuth.getCurrentUser().getEmail();
         Posts posts = posts_list.get(position);
 
 
@@ -64,6 +71,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
         holder.timeStamp.setText(time);
 
 
+
+
         if (messageType.equals("text")) {
             holder.postText.setText(posts.getMessage());
             holder.messagePicture.setVisibility(View.GONE);
@@ -77,6 +86,55 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
                         .placeholder(R.drawable.default_profile_img).into(holder.messagePicture);
 
 
+
+        }
+        String instEmail = posts.getEmail();
+        if(userEmailOnline.equals(instEmail)){
+
+        holder.myView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                new MaterialDialog.Builder(ctx)
+                        .title("Do you want to delete the post?")
+                        .positiveText("Yes")
+                        .negativeText("No")
+                        .theme(Theme.DARK)
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                                DatabaseReference postsRef = FirebaseDatabase.getInstance().getReference()
+                                        .child("posts");
+                                postsRef.child(classroom_id).child(post_push_id).removeValue()
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    posts_list.remove(position);
+                                                  //  notifyDataSetChanged();
+                                                  notifyItemRemoved(position);
+
+
+
+
+                                                    //   Toast.makeText(getActivity(), "ClassRoom Removed Successfully", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+
+
+                            }
+                        })
+                        .onNegative(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                            }
+                        })
+                        .show();
+                return false;
+            }
+        });
 
         }
 
@@ -105,9 +163,11 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
         public ImageView messagePicture;
         public TextView timeStamp;
         public Button comment_btn;
+        public View myView;
 
         public PostsViewHolder(View view) {
             super(view);
+            myView = view;
 
 
             postText = (TextView) view.findViewById(R.id.post_text_message);

@@ -90,6 +90,7 @@ public class posts_profile_activity extends AppCompatActivity {
         onlineUser = mAuth.getCurrentUser().getUid();
         message_image_storage_ref = FirebaseStorage.getInstance().getReference().child("messages_pictures");
 
+
         progressDialog = new ProgressDialog(this);
 
         //for recyclerView
@@ -112,7 +113,7 @@ public class posts_profile_activity extends AppCompatActivity {
 
 
         if (isInstructor) {//the interface of instructor
-            Toast.makeText(this, "This is instructor", Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(this, "This is instructor", Toast.LENGTH_SHORT).show();
 
             add_post_imagebtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -139,7 +140,7 @@ public class posts_profile_activity extends AppCompatActivity {
 
         } else//the interface of students
         {
-            Toast.makeText(this, "This is student", Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(this, "This is student", Toast.LENGTH_SHORT).show();
             send_bar.setVisibility(View.GONE);
 
             DatabaseReference inst_Ref = FirebaseDatabase.getInstance().getReference().child("instructors");
@@ -174,7 +175,7 @@ public class posts_profile_activity extends AppCompatActivity {
 
             final String post_ref = "posts/" + UniqueClassId;
             DatabaseReference postRef_key = rootRef.child("posts").child(UniqueClassId).push();
-            postRef_key.keepSynced(true);
+             postRef_key.keepSynced(true);
             final String post_push_id = postRef_key.getKey();
             StorageReference filePath = message_image_storage_ref.child(post_push_id + ".jpg");
 

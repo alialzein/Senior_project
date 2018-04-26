@@ -6,49 +6,50 @@
     android:weightSum="1">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_weight="0.5"
-        android:orientation="horizontal"
-        android:weightSum="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_margin="5dp"
+        android:layout_weight="0.85"
+        android:orientation="horizontal"
         android:padding="1dp"
+        android:weightSum="1"
 
         >
 
         <TextView
             android:id="@+id/sender_name"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:layout_weight="0.1"
+            android:layout_weight="0.24"
             android:selectAllOnFocus="false"
             android:singleLine="false"
             android:text="name"
+            android:textColor="#000000"
             android:textAlignment="center"
             android:textSize="18dp"
             android:textStyle="bold|italic" />
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.6"
             android:id="@+id/comment_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.55"
+            android:background="@drawable/button_quiz"
+           android:padding="10dp"
             android:text="first comment"
-            android:paddingStart="5dp"
-            android:background="@drawable/comment_text_background"
-            android:textSize="14dp"/>
+            android:textSize="14dp" />
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.06"
             android:id="@+id/comment_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_weight="0.21"
+            android:text="10:22 AM"
+            android:textColor="#ff0000"
             android:textSize="15dp"
-            android:textStyle="bold"
-            android:text="10:22"
-            android:layout_marginTop="10dp"
-            android:textColor="#ff0000"/>
-
-
+            android:textStyle="bold" />
 
 
     </LinearLayout>

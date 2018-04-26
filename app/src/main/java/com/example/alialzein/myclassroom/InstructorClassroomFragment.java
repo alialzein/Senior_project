@@ -1,9 +1,12 @@
 package com.example.alialzein.myclassroom;
 
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +14,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -31,12 +33,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.Map;
 
+import static android.content.Context.ALARM_SERVICE;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class InstructorClassroomFragment extends Fragment {
-private Button Create_New_Classroom;
+private FloatingActionButton Create_New_Classroom;
 private View myView;
 private FirebaseAuth mAuth;
 private RecyclerView instructor_classroom_list;
@@ -46,6 +50,7 @@ private String instructorId;
     private Map instructor_classroom_info;
     private Query classroom_orders;
     private LinearLayoutManager linearLayoutManager;
+    private int notfId;
 
     public InstructorClassroomFragment() {
         // Required empty public constructor
@@ -58,7 +63,7 @@ private String instructorId;
         myView=inflater.inflate(R.layout.fragment_instructor_classroom, container, false);
         mAuth = FirebaseAuth.getInstance();
 
-        Create_New_Classroom = (Button) myView.findViewById(R.id.create_new_classroom_btn);
+        Create_New_Classroom = myView.findViewById(R.id.create_new_classroom_btn);
         try {
             Create_New_Classroom.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -85,6 +90,7 @@ private String instructorId;
 
 
         instructor_classroom_list.setLayoutManager(linearLayoutManager);
+
 
 
 
@@ -195,6 +201,28 @@ private String instructorId;
                                                 }
                                             }
                                         });
+                                        DatabaseReference localNotificationRef = FirebaseDatabase.getInstance().getReference().child("local_notification");
+                                        localNotificationRef.child(UniqueClassId).addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                if (dataSnapshot.hasChild("notification_id")) {
+                                                    notfId = ( dataSnapshot.getValue(int.class));
+                                                    Intent intent = new Intent(getActivity().getApplicationContext(), Notification_reciever.class);
+                                                    PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity().getApplicationContext(), notfId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                                                    AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(ALARM_SERVICE);
+                                                    alarmManager.cancel(pendingIntent);
+                                                }
+
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
+                                            }
+                                        });
+
+
+                                       // Toast.makeText(getContext(), "alarm removed", Toast.LENGTH_SHORT).show();
 
 
 
@@ -215,6 +243,7 @@ private String instructorId;
         };
 
         instructor_classroom_list.setAdapter(firebaseRecyclerAdapter);
+        firebaseRecyclerAdapter.notifyDataSetChanged();
     }
 
     public static class InstructorClassrromsViewHolder extends RecyclerView.ViewHolder {

@@ -81,6 +81,7 @@ public class CreatQuiz extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 startActivity(tooQuiz);
+                finish();
             }
 
         });
@@ -165,6 +166,7 @@ public class CreatQuiz extends AppCompatActivity {
                     //QUIZ OBJECT READY TO INSERT TO DB
                //  QuizRef.child(quizID).setValue(quiz);
                     startActivity(tooQuiz);
+                    finish();
 
 
                }

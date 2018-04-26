@@ -125,6 +125,7 @@ public class startQuiz extends AppCompatActivity {
                            }
                            if(counter2==0) {
                                startActivity(new Intent(startQuiz.this,Student_board.class));
+                               finish();
                            }
 
                        }
@@ -226,6 +227,7 @@ public class startQuiz extends AppCompatActivity {
                        public void onComplete(@NonNull Task<Void> task) {
                            if (task.isSuccessful()) {
                                startActivity(new Intent(startQuiz.this,Student_board.class));
+                               finish();
                            }
                        }
                    });

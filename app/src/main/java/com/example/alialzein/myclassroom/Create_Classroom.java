@@ -1,5 +1,7 @@
 package com.example.alialzein.myclassroom;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,13 +29,17 @@ public class Create_Classroom extends AppCompatActivity {
     private EditText classroom_name;
     private EditText classroom_section;
     private EditText classroom_semester;
+    private EditText classroom_hour;
+    private EditText classroom_min;
    private String UniqueOfClassroom;
-   private String Class_name,Class_section,Class_semester;
+   private String Class_name,Class_section,Class_semester,Class_hour,Class_minutes;
    private DatabaseReference ClassRoomsReference;
     private String ClassroomId;
     private ProgressDialog loadingBar;
     private FirebaseAuth mAuth;
     private String instructorID;
+    private DatabaseReference class_time_ref;
+    private int hour, min;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +49,8 @@ public class Create_Classroom extends AppCompatActivity {
         classroom_name = (EditText) findViewById(R.id.classroom_name);
         classroom_section = (EditText) findViewById(R.id.classroom_section);
         classroom_semester = (EditText) findViewById(R.id.classroom_semester);
+        classroom_hour = (EditText) findViewById(R.id.classroom_hour);
+        classroom_min = (EditText) findViewById(R.id.classroom_minutes);
 
         mAuth = FirebaseAuth.getInstance();
         instructorID = mAuth.getCurrentUser().getUid();
@@ -57,18 +66,61 @@ public class Create_Classroom extends AppCompatActivity {
                  Class_name = classroom_name.getText().toString().toUpperCase();
                  Class_section = classroom_section.getText().toString().toUpperCase();
                  Class_semester = classroom_semester.getText().toString().toUpperCase();
-                if (TextUtils.isEmpty(Class_name) || TextUtils.isEmpty(Class_section) || TextUtils.isEmpty(Class_semester))
+                Class_hour = classroom_hour.getText().toString();
+                Class_minutes = classroom_min.getText().toString();
+
+                if (TextUtils.isEmpty(Class_name) || TextUtils.isEmpty(Class_section) || TextUtils.isEmpty(Class_semester)
+                        || TextUtils.isEmpty(Class_hour)|| TextUtils.isEmpty(Class_minutes))
                 {
                     Toast.makeText(Create_Classroom.this,"You have Some Missing Fields",Toast.LENGTH_SHORT).show();
                 }
                 else
                     {
+                         hour = Integer.valueOf(Class_hour);
+                         min = Integer.valueOf(Class_minutes);
+                        if (min < 15) {
+                            int remaining_min = 15 - min;
+                            min = 60 - remaining_min;
+                            hour = hour - 1;
+                        } else {
+                            hour = hour;
+                            min = min - 15;
+                        }
+
+
+
                         UniqueOfClassroom=Class_name+"_"+Class_semester+"_"+Class_section;
+
                         SendUserToAddStudents();
+
                     }
 
             }
         });
+
+
+
+    }
+
+    private void setNotification() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY,hour);
+        calendar.set(Calendar.MINUTE,min);
+
+        int id = hour+min;
+        DatabaseReference localNotificationRef = FirebaseDatabase.getInstance().getReference().child("local_notification");
+        localNotificationRef.child(UniqueOfClassroom).child("notification_id").setValue(id);
+         Toast.makeText(getApplicationContext(), String.valueOf(id), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getApplicationContext(), Notification_reciever.class);
+        intent.putExtra("id", id);
+        intent.putExtra("class_name", Class_name);
+        intent.putExtra("UniqueOfClassroom", UniqueOfClassroom);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        //alarmManager.cancel(pendingIntent);
+
+
     }
 
     private void SendUserToAddStudents() {
@@ -82,6 +134,7 @@ public class Create_Classroom extends AppCompatActivity {
         classroom_info.put("classroom_semester", Class_semester);
         classroom_info.put("classroom_section", Class_section);
         classroom_info.put("post_time", ServerValue.TIMESTAMP);
+        classroom_info.put("class_time",Class_hour+":"+Class_minutes );
 
         ClassRoomsReference.child(instructorID).child(UniqueOfClassroom).setValue(classroom_info).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -90,11 +143,27 @@ public class Create_Classroom extends AppCompatActivity {
                     loadingBar.dismiss();
                     Toast.makeText(Create_Classroom.this, "ClassRoom Created Successfully", Toast.LENGTH_SHORT).show();
 
+                    setNotification();
 
 
                 }
             }
         });
+//        class_time_ref = FirebaseDatabase.getInstance().getReference().child("classrooms").child(instructorID);
+//        class_time_ref.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                if (dataSnapshot.hasChild(UniqueOfClassroom)) {
+//
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
 
 
 

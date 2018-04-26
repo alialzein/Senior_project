@@ -2,18 +2,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.alialzein.myclassroom.InstructorClassroomFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <Button
-        android:id="@+id/create_new_classroom_btn"
-        android:layout_width="match_parent"
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create  New Class Room" />
+        android:id="@+id/create_new_classroom_btn"
+        android:src="@drawable/ic_add_black_24dp"
+        android:layout_alignParentBottom="true"
+        app:fabSize="normal"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"
+       />
 
     <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="50dp"
         android:id="@+id/instructor_classrooms_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

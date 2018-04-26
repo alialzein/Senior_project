@@ -1,30 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/register"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/register"
+    android:orientation="vertical"
+    android:padding="5dp"
     tools:context="com.example.alialzein.myclassroom.RegisterInstructor">
 
     <EditText
         android:id="@+id/Iname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="146dp"
+        android:layout_marginBottom="7dp"
+        android:background="@drawable/edit_text_border"
         android:ems="10"
         android:hint="Enter Your Name"
         android:inputType="textPersonName" />
-
 
     <EditText
         android:id="@+id/Iemail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/Iname"
+        android:layout_marginBottom="7dp"
+        android:background="@drawable/edit_text_border"
         android:ems="10"
         android:hint="Enter Your Email"
         android:inputType="textEmailAddress" />
@@ -33,36 +32,42 @@
         android:id="@+id/Ipassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/Iemail"
+        android:layout_marginBottom="7dp"
+        android:background="@drawable/edit_text_border"
         android:ems="10"
         android:hint="Enter Your password"
         android:inputType="textPassword" />
 
     <EditText
         android:id="@+id/getted_pass"
-        android:layout_width="400dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/textView"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="7dp"
+        android:background="@drawable/edit_text_border"
         android:ems="10"
         android:hint="Enter the password you getted from admin"
         android:inputType="textPassword" />
 
-    <TextView
-        android:id="@+id/textView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/reg_inst_btn"
-        android:layout_alignParentStart="true"
-        android:text="Contact Us to get your pass:MyClassroom@gmail.com" />
+        android:layout_weight="1" />
 
     <Button
         android:id="@+id/reg_inst_btn"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="7dp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/comment_button"
         android:text="Register" />
-</RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Contact Us to get your pass: MyClassroom@gmail.com"
+        android:textAlignment="center" />
+
+</LinearLayout>
