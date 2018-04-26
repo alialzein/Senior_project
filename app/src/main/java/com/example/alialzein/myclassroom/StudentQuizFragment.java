@@ -4,7 +4,6 @@ package com.example.alialzein.myclassroom;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +56,46 @@ public class StudentQuizFragment extends Fragment {
 
         mAuth=FirebaseAuth.getInstance();
         StudentId = mAuth.getCurrentUser().getUid();
+
+        startQuiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                QuizRef = FirebaseDatabase.getInstance().getReference().child("Quizes");
+                QuizRef.addValueEventListener(new ValueEventListener() {
+                    final String Id=quizId.getText().toString();
+                    boolean empty =quizId.getText().toString().isEmpty();
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.hasChild(Id)&& !empty) {
+                            Intent toStartQuiz = new Intent(getActivity(), startQuiz.class);
+                            toStartQuiz.putExtra("quizId", quizId.getText().toString());
+                            quizId.setText("");
+                            startActivity(toStartQuiz);
+
+                        }
+                        else{
+                            Toast.makeText(getActivity(), "This quiz does not exist...", Toast.LENGTH_SHORT).show();
+                        }
+
+                    if(empty){
+                        Toast.makeText(getActivity(), "please make sure to enter the quiz ID", Toast.LENGTH_SHORT).show();
+                    }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
+            }
+        });
+
+
+
+
+
         getQuizGrade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,22 +125,6 @@ public class StudentQuizFragment extends Fragment {
 
                     }
                 });
-            }
-        });
-
-
-        startQuiz.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(TextUtils.isEmpty(quizId.getText().toString())){
-                    Toast.makeText(getActivity(), "please enter the id of the quiz", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Intent toStartQuiz = new Intent(getActivity(), startQuiz.class);
-                    toStartQuiz.putExtra("quizId", quizId.getText().toString());
-                    startActivity(toStartQuiz);
-
-                }
             }
         });
 
