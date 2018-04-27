@@ -112,7 +112,9 @@ public class StudentClassroomFragment extends Fragment {
                            boolean newPostFlag= dataSnapshot.child(UniqueClassId).child("new_post").getValue(boolean.class);
 
                             if (newPostFlag) {
-                                viewHolder.mView.findViewById(R.id.all_background).setBackgroundColor(getResources().getColor(R.color.newPostFlag));
+                                viewHolder.mView.findViewById(R.id.img_notify).setVisibility(View.VISIBLE);
+                            } else {
+                                viewHolder.mView.findViewById(R.id.img_notify).setVisibility(View.INVISIBLE);
                             }
 
                         }

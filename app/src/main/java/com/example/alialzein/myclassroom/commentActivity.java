@@ -176,7 +176,7 @@ public class commentActivity extends AppCompatActivity implements SimpleGestureF
 
                         if (sender_id.equals(Sender_id)) {
                             viewHolder.mView.findViewById(R.id.comment_text).setBackground(getResources().getDrawable(comment_text_background));
-                            viewHolder.mView.findViewById(R.id.sender_name).setVisibility(View.INVISIBLE);
+                            viewHolder.mView.findViewById(R.id.sender_name).setVisibility(View.GONE);
                             LinearLayout x = viewHolder.mView.findViewById(R.id.all_component);
                             x.setGravity(Gravity.END);
 

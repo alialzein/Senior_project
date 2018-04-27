@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="10dp"
     tools:context="com.example.alialzein.myclassroom.StudentQuizFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -22,6 +23,7 @@
         android:id="@+id/quizId"/>
 
     <Button
+        android:layout_marginTop="5dp"
         android:background="@drawable/button_quiz"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
