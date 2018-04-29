@@ -206,7 +206,8 @@ private String instructorId;
                                             @Override
                                             public void onDataChange(DataSnapshot dataSnapshot) {
                                                 if (dataSnapshot.hasChild("notification_id")) {
-                                                    notfId = ( dataSnapshot.getValue(int.class));
+                                                    String ntfid=  dataSnapshot.child("notification_id").getValue().toString();
+                                                    notfId = Integer.valueOf(ntfid);
                                                     Intent intent = new Intent(getActivity().getApplicationContext(), Notification_reciever.class);
                                                     PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity().getApplicationContext(), notfId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                                                     AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(ALARM_SERVICE);
