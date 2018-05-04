@@ -7,4 +7,5 @@
     <string name="title_activity_student__classroom__profile">student_Classroom_Profile</string>
     <string name="title_activity_instructor__classroom__profile">instructor_Classroom_Profile
     </string>
+    <string name="title_activity_instructor_quiz_statistics">instructor_quiz_statistics</string>
 </resources>

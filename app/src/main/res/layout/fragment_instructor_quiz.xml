@@ -53,4 +53,12 @@
 
     </android.support.v7.widget.RecyclerView>
 
+    <Button
+        android:id="@+id/getstatistics"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textview22"
+        android:layout_alignTop="@+id/get_grades_inst"
+        android:text="Statistics?" />
+
 </RelativeLayout>
