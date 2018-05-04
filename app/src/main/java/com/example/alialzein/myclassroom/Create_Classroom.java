@@ -110,6 +110,7 @@ public class Create_Classroom extends AppCompatActivity {
         int id = hour+min;
         DatabaseReference localNotificationRef = FirebaseDatabase.getInstance().getReference().child("local_notification");
         localNotificationRef.child(UniqueOfClassroom).child("notification_id").setValue(id);
+        localNotificationRef.child(UniqueOfClassroom).child("class_time").setValue(String.valueOf(hour) + ":" + String.valueOf(min));
          Toast.makeText(getApplicationContext(), String.valueOf(id), Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getApplicationContext(), Notification_reciever.class);
         intent.putExtra("id", id);

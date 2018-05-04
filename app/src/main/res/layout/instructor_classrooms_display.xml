@@ -10,26 +10,33 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:id="@+id/all_background"
+        android:weightSum="1"
         android:background="@color/common_google_signin_btn_text_dark_disabled"
         >
-
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/img_notify"
+            android:layout_weight="0.1"
+            android:visibility="invisible"
+            android:src="@drawable/ic_notifications_active_black_24dp"/>
         <TextView
             android:id="@+id/Classroom_name"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.3"
+            android:layout_weight="0.6"
             android:text="ali"
             android:textAlignment="center"
             android:textAllCaps="true"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorPrimary"
             android:textSize="50sp"
             android:textStyle="bold|italic"/>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_weight="0.6"
+            android:layout_weight="0.3"
             android:layout_margin="5dp"
             android:weightSum="1">
 
@@ -41,7 +48,7 @@
                 android:text="A"
                 android:layout_weight="0.4"
                 android:textAlignment="center"
-                android:textColor="@color/ListOfStudent"
+                android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"/>
 
@@ -58,7 +65,7 @@
                 android:background="@color/common_google_signin_btn_text_light_default"
                 android:text="Fall"
                 android:textAlignment="center"
-                android:textColor="@color/ListOfStudent"
+                android:textColor="@color/white"
                 android:textSize="20dp"
                 android:textStyle="bold"/>
         </LinearLayout>

@@ -1,5 +1,7 @@
 package com.example.alialzein.myclassroom;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,6 +13,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,6 +37,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -155,10 +160,69 @@ public class posts_profile_activity extends AppCompatActivity {
 
                 }
             });
+
+
+
+
         }
 
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        if (!isInstructor) {
+            getMenuInflater().inflate(R.menu.notification,menu);
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.set_notification) {
+
+            DatabaseReference localNotificationRef = FirebaseDatabase.getInstance().getReference().child("local_notification");
+            localNotificationRef.child(UniqueClassId).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    String notf_time = dataSnapshot.child("class_time").getValue().toString();
+                    String notf_id= dataSnapshot.child("notification_id").getValue().toString();
+
+                    String[] splitted_time = new String[2];
+                    splitted_time=notf_time.split(":");
+                    int hour =Integer.valueOf( splitted_time[0]);
+                    int min =Integer.valueOf( splitted_time[1]);
+                    int id = Integer.valueOf(notf_id);
+
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(Calendar.HOUR_OF_DAY,hour);
+                    calendar.set(Calendar.MINUTE,min);
+
+                    Intent intent = new Intent(getApplicationContext(), Notification_reciever.class);
+                    intent.putExtra("id", id);
+                    intent.putExtra("class_name", classroom_name);
+                    intent.putExtra("UniqueOfClassroom", UniqueClassId);
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
+                    Toast.makeText(posts_profile_activity.this, "The notification is at "+notf_time, Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+        return true;
     }
 
 

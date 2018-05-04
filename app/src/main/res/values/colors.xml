@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#000000</color>
-    <color name="colorPrimaryDark">#cd486b</color>
-    <color name="colorAccent">#cd486b</color>
+    <color name="colorPrimary">#dc1d41</color>
+    <color name="colorPrimaryDark">#263237</color>
+    <color name="colorAccent">#dc1d41</color>
     <!--<color name="colorAccent">#FF4081</color>-->
-    <color name="ListOfStudent">#fbad50</color>
+    <color name="ListOfStudent">#eeea00</color>
     <color name="newPostFlag">#00ff00</color>
-    <color name="whiteblue">#cd486b</color>
-    <color name="lgrey">#b5b5b5</color>
-    <color name="red">#ff0000</color>
-
+    <color name="whiteblue">#b2daf5</color>
+    <color name="white">#ffffff</color>
 </resources>

@@ -1,6 +1,8 @@
 package com.example.alialzein.myclassroom;
 
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -30,6 +32,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static android.content.Context.ALARM_SERVICE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -112,7 +116,9 @@ public class StudentClassroomFragment extends Fragment {
                            boolean newPostFlag= dataSnapshot.child(UniqueClassId).child("new_post").getValue(boolean.class);
 
                             if (newPostFlag) {
-                                viewHolder.mView.findViewById(R.id.all_background).setBackgroundColor(getResources().getColor(R.color.newPostFlag));
+                                viewHolder.mView.findViewById(R.id.img_notify).setVisibility(View.VISIBLE);
+                            } else {
+                                viewHolder.mView.findViewById(R.id.img_notify).setVisibility(View.INVISIBLE);
                             }
 
                         }
@@ -177,6 +183,8 @@ public class StudentClassroomFragment extends Fragment {
 
                         DatabaseReference newPostFlag=FirebaseDatabase.getInstance().getReference().child("new_post_flag");
                         newPostFlag.child(UniqueClassId).child("new_post").setValue(false);
+
+
                     }
                 });
 
@@ -207,6 +215,26 @@ public class StudentClassroomFragment extends Fragment {
                                                 });
 
 
+                                        DatabaseReference localNotificationRef = FirebaseDatabase.getInstance().getReference().child("local_notification");
+                                        localNotificationRef.child(UniqueClassId).addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                if (dataSnapshot.hasChild("notification_id")) {
+                                                    String ntfid=  dataSnapshot.child("notification_id").getValue().toString();
+                                                    int notfId = Integer.valueOf(ntfid);
+                                                    Intent intent = new Intent(getActivity().getApplicationContext(), Notification_reciever.class);
+                                                    PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity().getApplicationContext(), notfId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                                                    AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(ALARM_SERVICE);
+                                                    alarmManager.cancel(pendingIntent);
+                                                }
+
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
+                                            }
+                                        });
 
                                     }
                                 })
