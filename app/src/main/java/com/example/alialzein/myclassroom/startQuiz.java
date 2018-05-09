@@ -86,52 +86,61 @@ public class startQuiz extends AppCompatActivity {
        QuizGradeRef.child(Quiz_id).addValueEventListener(new ValueEventListener() {
            @Override
            public void onDataChange(DataSnapshot dataSnapshot) {
-               if (dataSnapshot.hasChild(StudentId)) {
-                   Toast.makeText(startQuiz.this, "you have already done this quiz", Toast.LENGTH_LONG).show();
+             try {
+                 if (dataSnapshot.hasChild(StudentId)) {
+                     Toast.makeText(startQuiz.this, "you have already done this quiz", Toast.LENGTH_LONG).show();
 
-                   //already done quiz
-                   QuizRef.addValueEventListener(new ValueEventListener() {
-                       @Override
-                       public void onDataChange(DataSnapshot dataSnapshot) {
-                           NextQuestion.setVisibility(View.GONE);
-                           numOfQuestions=dataSnapshot.child(Quiz_id).child("numOfQuestions").getValue().toString();
-                           counter = Integer.valueOf(numOfQuestions)-1;
-                           counter2 = Integer.valueOf(numOfQuestions);
-                           if(counter==0)  NextResult.setText("Done");
-                           if (counter == Integer.valueOf(numOfQuestions) - 1) {
-                               FillR(counter);
-                           }
-                       }
+                     //already done quiz
+                     QuizRef.addValueEventListener(new ValueEventListener() {
+                         @Override
+                         public void onDataChange(DataSnapshot dataSnapshot) {
+                             NextQuestion.setVisibility(View.GONE);
+                             numOfQuestions=dataSnapshot.child(Quiz_id).child("numOfQuestions").getValue().toString();
+                             counter = Integer.valueOf(numOfQuestions)-1;
+                             counter2 = Integer.valueOf(numOfQuestions);
+                            try {
+                                if(counter==0)  NextResult.setText("Done");
+                            }catch (Exception ex){startActivity(new Intent(startQuiz.this,Student_board.class));
+                                finish();}
+                            try {
+                                if (counter == Integer.valueOf(numOfQuestions) - 1) {
+                                    FillR(counter);
+                                }
+                            }catch (Exception ex){startActivity(new Intent(startQuiz.this,Student_board.class));
+                                finish();}
+                         }
 
-                       @Override
-                       public void onCancelled(DatabaseError databaseError) {
+                         @Override
+                         public void onCancelled(DatabaseError databaseError) {
 
-                       }
-                   });
+                         }
+                     });
 
-                   NextResult.setOnClickListener(new View.OnClickListener() {
-                       @Override
-                       public void onClick(View view) {
+                     NextResult.setOnClickListener(new View.OnClickListener() {
+                         @Override
+                         public void onClick(View view) {
 
-                           if ( counter2> 0) {
-                               counter2--;
-                               counter--;
-                               e1.setBackgroundColor(-1);//this is
-                               e2.setBackgroundColor(-1);//for
-                               e3.setBackgroundColor(-1);//refreshing
-                               e4.setBackgroundColor(-1);//the color where -1 is the constant integer for the white color
-                               if(counter==0)  NextResult.setText("Done");
-                               if(counter>=0) FillR(counter);
-                           }
-                           if(counter2==0) {
-                               startActivity(new Intent(startQuiz.this,Student_board.class));
-                               finish();
-                           }
+                             if ( counter2> 0) {
+                                 counter2--;
+                                 counter--;
+                                 e1.setBackgroundColor(-1);//this is
+                                 e2.setBackgroundColor(-1);//for
+                                 e3.setBackgroundColor(-1);//refreshing
+                                 e4.setBackgroundColor(-1);//the color where -1 is the constant integer for the white color
+                                 if(counter==0)  NextResult.setText("Done");
+                                 if(counter>=0) FillR(counter);
+                             }
+                             if(counter2==0) {
+                                 startActivity(new Intent(startQuiz.this,Student_board.class));
+                                 finish();
+                             }
 
-                       }
-                   });
-               }
-               else{NextResult.setVisibility(View.GONE);}
+                         }
+                     });
+                 }
+                 else{NextResult.setVisibility(View.GONE);}
+             }catch (Exception ex){startActivity(new Intent(startQuiz.this,Student_board.class));
+                 finish();}
            }
 
            @Override
@@ -211,29 +220,40 @@ public class startQuiz extends AppCompatActivity {
                       Fill(counter);}
 
                 }
-                if(counter2==0) {
+               try {
+                    if(counter2==0) {
 
-                    QuizClass quiz = new QuizClass(Quiz_id,questionsArray,Integer.valueOf(numOfQuestions));
-                   double result= quiz.QuizResult();
+                       QuizClass quiz = new QuizClass(Quiz_id,questionsArray,Integer.valueOf(numOfQuestions));
+                       double result= quiz.QuizResult();
 
 
-                    String studentEmail = mAuth.getCurrentUser().getEmail();
-                    Map grade_email = new HashMap();
-                    grade_email.put("grade",String.valueOf(result));
-                    grade_email.put("email", studentEmail);
+                       String studentEmail = mAuth.getCurrentUser().getEmail();
+                       Map grade_email = new HashMap();
+                       grade_email.put("grade",String.valueOf(result));
+                       grade_email.put("email", studentEmail);
 
-                    QuizGradeRef.child(Quiz_id).child(StudentId).setValue(grade_email).addOnCompleteListener(new OnCompleteListener<Void>() {
-                       @Override
-                       public void onComplete(@NonNull Task<Void> task) {
-                           if (task.isSuccessful()) {
-                               startActivity(new Intent(startQuiz.this,Student_board.class));
-                               finish();
-                           }
-                       }
-                   });
+                       try {
+                           QuizGradeRef.child(Quiz_id).child(StudentId).setValue(grade_email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                               @Override
+                               public void onComplete(@NonNull Task<Void> task) {
+                                   try {
+                                       if (task.isSuccessful()) {
+                                           startActivity(new Intent(startQuiz.this,Student_board.class));
+                                           finish();
 
-                    Log.i("result", String.valueOf(result));
-                }
+                                       }
+                                   }catch (Exception ex){startActivity(new Intent(startQuiz.this,Student_board.class));
+                                       finish();}
+
+                               }
+                           });
+                       }catch (Exception ex){startActivity(new Intent(startQuiz.this,Student_board.class));
+                           finish();}
+
+
+                   }
+               }catch (Exception ex){startActivity(new Intent(startQuiz.this,Student_board.class));
+                   finish();}
 
             }
         });

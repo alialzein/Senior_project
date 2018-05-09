@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".Offline_Classroom"
@@ -41,7 +41,6 @@
             android:name=".SplashActivity"
             android:label="My Class Room"
             android:theme="@style/AppTheme.NoActionBar.FullScreen">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -65,9 +64,15 @@
         </activity>
         <activity android:name=".commentActivity" />
         <activity android:name=".CreatQuiz" />
-        <activity android:name=".startQuiz"></activity>
+        <activity android:name=".startQuiz" />
 
         <receiver android:name=".Notification_reciever" />
+
+        <activity
+            android:name=".instructor_quiz_statistics"
+            android:label="@string/title_activity_instructor_quiz_statistics"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".RateThisQuiz"></activity>
     </application>
 
 </manifest>

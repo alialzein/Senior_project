@@ -30,10 +30,11 @@ public class InstructorQuizFragment extends Fragment {
     private View myView;
     private Button b;
     private RecyclerView allGradesRecyclerView;
-    private Button getGrades;
+    private Button getGrades , statistics;
     private EditText idQuizGrades;
     private String idGrades;
     private DatabaseReference QuizGradesRef;
+    private Intent ToStatistics;
 
 
     public InstructorQuizFragment() {
@@ -51,6 +52,8 @@ public class InstructorQuizFragment extends Fragment {
         allGradesRecyclerView = (RecyclerView) myView.findViewById(R.id.allGrades_recyclerView);
         allGradesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         getGrades = (Button) myView.findViewById(R.id.get_grades_inst);
+        statistics=(Button) myView.findViewById(R.id.getstatistics);
+        ToStatistics=new Intent(getActivity(),instructor_quiz_statistics.class);
         idQuizGrades = (EditText) myView.findViewById(R.id.id_quiz_grades);
 
 
@@ -65,6 +68,36 @@ public class InstructorQuizFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        statistics.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                idGrades = idQuizGrades.getText().toString();
+                if (TextUtils.isEmpty(idGrades)) {
+                    Toast.makeText(getActivity(), "please enter the id of the quiz to get the grades", Toast.LENGTH_SHORT).show();
+                } else {
+
+                    FirebaseDatabase.getInstance().getReference().child("QuizGrades").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.hasChild(idGrades)) {
+                                ToStatistics.putExtra("quizid",idGrades);
+                                startActivity(ToStatistics);
+
+                            } else {
+                                Toast.makeText(getActivity(), "This quiz does not exist", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+
+            }
+        });
 
         getGrades.setOnClickListener(new View.OnClickListener() {
             @Override

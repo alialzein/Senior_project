@@ -8,4 +8,8 @@
     <color name="newPostFlag">#00ff00</color>
     <color name="whiteblue">#b2daf5</color>
     <color name="white">#ffffff</color>
+    <color name="red">#ff0000</color>
+    <color name="shadeblack">#707070</color>
+    <color name="shadeblack1">#4d4d4d</color>
+    <color name="gold">#DAA520</color>
 </resources>
