@@ -71,7 +71,8 @@
         <activity
             android:name=".instructor_quiz_statistics"
             android:label="@string/title_activity_instructor_quiz_statistics"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".RateThisQuiz"></activity>
     </application>
 
 </manifest>

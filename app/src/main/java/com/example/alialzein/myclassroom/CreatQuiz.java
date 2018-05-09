@@ -66,14 +66,18 @@ public class CreatQuiz extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                // String pin_entered = input.getText().toString();
-                if(TextUtils.isEmpty(input.getText())||input.getText().toString().contains(" ")){
-                    showMessage("Empty field","Please Make Sure To Enter The Number Of Questions Your Quiz Consists of");
-                    startActivity(refresh);
-                }
-                else{
-                  numOfQuestions=Integer.parseInt(input.getText().toString());
-                  counter=numOfQuestions;
-                }
+              try {
+                  if(TextUtils.isEmpty(input.getText())||input.getText().toString().contains(" ")
+                          ){
+                      showMessage("Empty field","Please Make Sure To Enter The Number Of Questions Your Quiz Consists of");
+                      startActivity(refresh);
+                  }
+                  else{
+                      numOfQuestions=Integer.parseInt(input.getText().toString());
+
+                      counter=numOfQuestions;
+                  }
+              }catch (Exception ex){startActivity(refresh);}
             }
 
         });

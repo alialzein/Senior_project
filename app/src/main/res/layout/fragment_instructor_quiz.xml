@@ -60,6 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/textview22"
         android:layout_alignTop="@+id/get_grades_inst"
+        android:background="@drawable/button_quiz"
         android:text="Statistics?" />
 
 </RelativeLayout>
