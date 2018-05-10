@@ -51,6 +51,7 @@ public class RateThisQuiz extends AppCompatActivity {
                         }
                     }
                 });
+                finish();
             }
         });
 
